@@ -1,0 +1,45 @@
+run = "chmod +x start_server.sh && ./start_server.sh & cd openv0/webapp && npm run dev"
+
+#run = "cd openv0/webapp && npm run dev"
+
+entrypoint = "index.js"
+modules = ["nodejs-18:v3-20230608-f4cd419"]
+hidden = [".config", "package-lock.json"]
+
+
+[[ports]]
+localPort = 8080
+externalPort = 80
+
+[[ports]]
+localPort = 8099
+externalPort = 8099
+
+[[ports]]
+localPort = 3030
+externalPort = 3030
+
+[[ports]]
+localPort = 5000
+externalPort = 5000
+
+[[ports]]
+localPort = 5432
+externalPort = 5432
+
+[[ports]]
+localPort = 9000
+externalPort = 9000
+
+[nix]
+channel = "stable-22_11"
+
+[env]
+PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
+npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
+
+
+[deployment]
+#run = ["node", "index.js"]
+run = "chmod +x start_server.sh && ./start_server.sh & cd openv0/webapp && npm run dev"
+deploymentTarget = "gce"
